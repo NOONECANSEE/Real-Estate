@@ -8,7 +8,8 @@ import {
 } from "../redux/user/userSlice";
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const { loading, error } = useSelector((state) => state.user);
+
+  const { loading, error } = useSelector((state) => state.user || {});
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleChange = (e) => {
@@ -58,7 +59,10 @@ export default function SignIn() {
           id="password"
           onChange={handleChange}
         />
-        <button className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
+        <button
+          disabled={loading}
+          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+        >
           {loading ? "Loading..." : "Sign In"}
         </button>
       </form>
