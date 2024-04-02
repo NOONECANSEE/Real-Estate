@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Swiper, SwiperSlide } from "swiper/react";
+// import { Swiper, SwiperSlide } from "swiper/react";
 
-import SwiperCore from "swiper";
-import { Navigation } from "swiper/modules";
+// import SwiperCore from "swiper";
+// import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
 import {
   FaBath,
@@ -17,8 +17,11 @@ import {
 } from "react-icons/fa";
 import Contact from "../components/Contact";
 
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+
 export default function Listing() {
-  SwiperCore.use([Navigation]);
+  // SwiperCore.use([Navigation]);
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -55,21 +58,22 @@ export default function Listing() {
       {error && (
         <p className="text-center my-7 text-2xl">Something went wrong!</p>
       )}
+
       {listing && !loading && !error && (
         <div>
-          <Swiper navigation>
+          <Carousel>
             {listing.imageUrls.map((imageUrl) => (
-              <SwiperSlide key={imageUrl}>
-                <div
-                  className="h-[500px]"
-                  style={{
-                    background: `url(${imageUrl})`,
-                  }}
-                ></div>
-                <img src="" alt="" />
-              </SwiperSlide>
+              <div
+                className="h-[500px]"
+                style={{
+                  background: `center no-repeat`,
+                  backgroundSize: "cover",
+                }}
+              >
+                <img src={imageUrl} />
+              </div>
             ))}
-          </Swiper>
+          </Carousel>
           <div className="fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer">
             <FaShare
               className="text-slate-500"
